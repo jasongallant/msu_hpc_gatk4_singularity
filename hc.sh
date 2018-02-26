@@ -24,7 +24,7 @@ module load singularity
 JOBSCRIPT=hc.qsub
 
 n=${PBS_ARRAYID}
-zp_n=printf "04d\n" $n
+zp_n=printf "%04d\n" $n
 
 cd $PBS_O_WORKDIR
 outd=./${input_file}_dir/shard-${n}/
