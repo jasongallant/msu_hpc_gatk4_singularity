@@ -21,7 +21,7 @@ MAXJOBID=49
 ### load necessary modules, e.g.
 module load singularity
 
-JOBSCRIPT=hc.sh
+JOBSCRIPT=/mnt/home/jgallant/gatk4_bp_workflow/hc.sh
 
 n=${PBS_ARRAYID}
 zp_n=`printf "%04d\n" $n`
