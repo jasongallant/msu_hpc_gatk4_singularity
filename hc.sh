@@ -21,7 +21,7 @@ MAXJOBID=49
 ### load necessary modules, e.g.
 module load singularity
 
-JOBSCRIPT=hc.qsub
+JOBSCRIPT=hc.sh
 
 n=${PBS_ARRAYID}
 zp_n=`printf "%04d\n" $n`
@@ -44,20 +44,20 @@ singularity exec /mnt/home/jgallant/jasongallant-gatk_singularity-master.simg /g
   -ERC GVCF
 
   # Calculate next job to run
-  #NEXT=$(( $n + 1 ))
+  NEXT=$(( $n + 1 ))
 
   #Check to see if next job is past the maximum job id
-  #if [ $NEXT -le $MAXJOBID ]
-#  then
-#          cd ${PBS_O_WORKDIR}
-#          qsub -t $NEXT $JOBSCRIPT
-#  fi
+  if [ $NEXT -le $MAXJOBID ]
+ then
+         cd ${PBS_O_WORKDIR}
+         qsub -t $NEXT -v reference=${reference},input_file=${input_file} $JOBSCRIPT
+ fi
 
   #Check to see if this is the last job and email user
-#  if [ $n -eq $MAXJOBID ]
-#  then
-#          echo "." | mail -s "YOUR JOB ARRAY IS FINISHING" $USER@msu.edu
-#  fi
+ if [ $n -eq $MAXJOBID ]
+ then
+         echo "." | mail -s "YOUR JOB ARRAY IS FINISHING" $USER@msu.edu
+ fi
 
   #Print out the statistics for this job
   qstat -f $PBS_JOBID
