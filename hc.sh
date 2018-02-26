@@ -27,7 +27,7 @@ n=${PBS_ARRAYID}
 zp_n=`printf "%04d\n" $n`
 
 cd $PBS_O_WORKDIR
-outd=./${input_file}_dir/shard-${n}/
+outd=${input_file}_dir/shard-${n}/
 
 mkdir -p ${outd}
 
@@ -36,7 +36,7 @@ singularity exec /mnt/home/jgallant/jasongallant-gatk_singularity-master.simg /g
   -R ${reference} \
   -I ${input_file} \
   -O ${outd}/${input_file}.g.vcf.gz \
-  -L ./intervals-file-new/${zp_n}-scattered.intervals \
+  -L intervals-file-new/${zp_n}-scattered.intervals \
   -ip 100 \
   -contamination 0 \
   --max-alternate-alleles 3 \
