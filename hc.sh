@@ -27,7 +27,8 @@ n=${PBS_ARRAYID}
 zp_n=`printf "%04d\n" $n`
 
 cd $PBS_O_WORKDIR
-outd=${input_file}_dir/shard-${n}/
+bn= basename${input_file}
+outd=${bn}_dir/shard-${n}/
 
 mkdir -p ${outd}
 
