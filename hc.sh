@@ -29,7 +29,7 @@ zp_n=`printf "%04d\n" $n`
 cd $PBS_O_WORKDIR
 outd=./${input_file}_dir/shard-${n}/
 
-echo "singularity exec /mnt/home/jgallant/jasongallant-gatk_singularity-master.simg /gatk/gatk --java-options -Xms8000m \
+singularity exec /mnt/home/jgallant/jasongallant-gatk_singularity-master.simg /gatk/gatk --java-options -Xms8000m \
   HaplotypeCaller \
   -R ${reference} \
   -I ${input_file} \
@@ -38,7 +38,7 @@ echo "singularity exec /mnt/home/jgallant/jasongallant-gatk_singularity-master.s
   -ip 100 \
   -contamination 0 \
   --max-alternate-alleles 3 \
-  -ERC GVCF"
+  -ERC GVCF
 
   # Calculate next job to run
   #NEXT=$(( $n + 1 ))
@@ -53,7 +53,7 @@ echo "singularity exec /mnt/home/jgallant/jasongallant-gatk_singularity-master.s
   #Check to see if this is the last job and email user
 #  if [ $n -eq $MAXJOBID ]
 #  then
-          echo "." | mail -s "YOUR JOB ARRAY IS FINISHING" $USER@msu.edu
+#          echo "." | mail -s "YOUR JOB ARRAY IS FINISHING" $USER@msu.edu
 #  fi
 
   #Print out the statistics for this job
