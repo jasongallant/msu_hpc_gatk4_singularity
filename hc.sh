@@ -27,7 +27,7 @@ n=${PBS_ARRAYID}
 zp_n=`printf "%04d\n" $n`
 
 cd $PBS_O_WORKDIR
-bn= basename${input_file}
+bn=`basename ${input_file}`
 outd=${bn}_dir/shard-${n}/
 
 mkdir -p ${outd}
@@ -36,7 +36,7 @@ singularity exec /mnt/home/jgallant/jasongallant-gatk_singularity-master.simg /g
   HaplotypeCaller \
   -R ${reference} \
   -I ${input_file} \
-  -O ${outd}/${input_file}.g.vcf.gz \
+  -O ${outd}/${bn}.g.vcf.gz \
   -L interval-files-new/${zp_n}-scattered.intervals \
   -ip 100 \
   -contamination 0 \
