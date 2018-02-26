@@ -29,7 +29,7 @@ zp_n=printf "04d\n" $n
 cd $PBS_O_WORKDIR
 outd=./${input_file}_dir/shard-${n}/
 
-singularity exec /mnt/home/jgallant/jasongallant-gatk_singularity-master.simg /gatk/gatk --java-options -Xms8000m \
+echo "singularity exec /mnt/home/jgallant/jasongallant-gatk_singularity-master.simg /gatk/gatk --java-options -Xms8000m \
   HaplotypeCaller \
   -R ${reference} \
   -I ${input_file} \
@@ -38,23 +38,23 @@ singularity exec /mnt/home/jgallant/jasongallant-gatk_singularity-master.simg /g
   -ip 100 \
   -contamination 0 \
   --max-alternate-alleles 3 \
-  -ERC GVCF
+  -ERC GVCF"
 
   # Calculate next job to run
-  NEXT=$(( $n + 1 ))
+  #NEXT=$(( $n + 1 ))
 
   #Check to see if next job is past the maximum job id
-  if [ $NEXT -le $MAXJOBID ]
-  then
-          cd ${PBS_O_WORKDIR}
-          qsub -t $NEXT $JOBSCRIPT
-  fi
+  #if [ $NEXT -le $MAXJOBID ]
+#  then
+#          cd ${PBS_O_WORKDIR}
+#          qsub -t $NEXT $JOBSCRIPT
+#  fi
 
   #Check to see if this is the last job and email user
-  if [ $n -eq $MAXJOBID ]
-  then
+#  if [ $n -eq $MAXJOBID ]
+#  then
           echo "." | mail -s "YOUR JOB ARRAY IS FINISHING" $USER@msu.edu
-  fi
+#  fi
 
   #Print out the statistics for this job
   qstat -f $PBS_JOBID
